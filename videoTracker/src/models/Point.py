@@ -8,40 +8,40 @@ Created on Thu Feb 10 15:46:19 2022
 
 class Point():
     
-    def __init__(self,x:float,y:float)->None:
+    def __init__(self,x:int,y:int,forcedType:any=None)->None:
         self.setX(x)
         self.setY(y)
+        self.setType(forcedType)
     
-    def getX(self)->float:
+    def getX(self)->any:
         return self.__x
     
-    def getY(self)->float:
+    def getY(self)->any:
         return self.__y
     
     def setX(self,newX:any)->None:
-        if type(newX)==float:
+        if self.__forcedType==None or type(newX)==self.__forcedType:
             self.__x=newX
-        elif type(newX)==int:
-            self.__x=float(newX)
-        elif type(newX)==str:
-            try:
-                tmp=float(newX)
-                self.__x=tmp
-            except :
-                raise Exception(f"value error:{newX}")
-        else: raise TypeError(f"type error:{type(newX)}")
+        else: 
+            raise TypeError(f"type error:{type(newX)} given,{self.__forcedType} was expected")
         
     def setY(self,newY:any)->None:
-        if type(newY)==float:
+        if self.__forcedType==None or type(newY)==self.__forcedType:
             self.__y=newY
-        elif type(newY)==int:
-            self.__y=float(newY)
-        elif type(newY)==str:
-            try:
-                tmp=float(newY)
-                self.__y=tmp
-            except :
-                raise Exception(f"value error:{newY}")
-        else: raise TypeError(f"type error:{type(newY)}")
-        
+        else:
+            raise TypeError(f"type error:{type(newY)} given,{self.__forcedType} was expected")
+
+    def setType(self,newType:any)->None:
+        if newType in (int,float,str,None):
+            self.__forcedType=newType
+        elif newType==any:
+            self.__forcedType=None
+        else:
+            raise TypeError(f"type error:{newType} was given, only {(int,float,str,None,any)} are accepted")
+    
+    def getType(self)->any:
+        if self.__forcedType==None:
+            return any
+        else:
+            return self.__forcedType
         
