@@ -18,6 +18,7 @@ echo ***********runing coverage: test_FileRepo.py test_Liste.py test_Point.py***
 coverage run -m unittest test_FileRepo.py test_Liste.py test_Point.py
 coverage html --precision=2
 coverage report --precision=2  --show-missing
+coverage report --precision=2  --show-missing >>coverageReport.txt
 pause
 goto END
 
