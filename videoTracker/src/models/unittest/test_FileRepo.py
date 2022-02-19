@@ -11,13 +11,9 @@ import unittest
 import sys
 from os import remove as removeFile
 
-if '\\' in __file__:
-    _MODELES_DIR_PATH="\\".join(__file__.split('\\')[:-2])+"\\"
-    sys.path.append(_MODELES_DIR_PATH)
-else:
-    _MODELES_DIR_PATH="/".join(__file__.split('/')[:-2])+"/"
-    sys.path.append(_MODELES_DIR_PATH)
-
+if '\\' in __file__ :_MODELES_DIR_PATH="\\".join(__file__.split('\\')[:-2])+"\\" ; sys.path.append(_MODELES_DIR_PATH)
+elif '/' in __file__:_MODELES_DIR_PATH="/".join(__file__.split('/')[:-2])+"/"    ; sys.path.append(_MODELES_DIR_PATH)
+else: raise EnvironmentError(f"their is neither '/' or '\\' in the __file__ const:{__file__}")
 
 from liste import Liste,Cell
 from point import Point
@@ -211,7 +207,6 @@ class Test_FileRepo(unittest.TestCase):
             removeFile(targetPath)
     
     
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
+if __name__ == '__main__':unittest.main(verbosity=2)
     
     

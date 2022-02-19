@@ -22,22 +22,19 @@ class Point():
     def setX(self,newX:any)->None:
         if self.__forcedType==None or type(newX)==self.__forcedType:
             self.__x=newX
-        else: 
-            raise TypeError(f"type error:{type(newX)} given,{self.__forcedType} was expected")
+        else:  raise TypeError(f"type error:{type(newX)} given,{self.__forcedType} was expected")
         
     def setY(self,newY:any)->None:
         if self.__forcedType==None or type(newY)==self.__forcedType:
             self.__y=newY
-        else:
-            raise TypeError(f"type error:{type(newY)} given,{self.__forcedType} was expected")
+        else:  raise TypeError(f"type error:{type(newY)} given,{self.__forcedType} was expected")
 
     def __setType(self,newType:any)->None:
         if newType in (int,float,str,None):
             self.__forcedType=newType
         elif newType==any:
             self.__forcedType=None
-        else:
-            raise TypeError(f"type error:{newType} was given, only {(int,float,str,None,any)} are accepted")
+        else:  raise TypeError(f"type error:{newType} was given, only {(int,float,str,None,any)} are accepted")
     
     def getType(self)->any:
         if self.__forcedType==None:

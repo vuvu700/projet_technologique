@@ -5,8 +5,8 @@ from typing import Union
 class Cell():
     
     def __init__(self:"Cell", value:any=None, next:Union["Cell",None]=None)->None:
-        self.__value = value
-        self.__next = next
+        self.setValue(value)
+        self.setNext(next)
 
     def setNext(self, next:Union["Cell",None])->None:
         self.__next = next

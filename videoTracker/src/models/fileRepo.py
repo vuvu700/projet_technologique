@@ -23,8 +23,7 @@ class FileRepo():
         if dataTime.getFirst().getValue()  ==None:  raise ValueError(f"unexpected empty Cell in dataTime at position {0}")
         if not dataPoints.getFirst().getValue().getType() in (float,None):
             raise TypeError(f"type of dataPoints:{dataPoints.getFirst().getValue().getType()} was forced, only {float} is accepted")
-        if type(dataTime.getFirst().getValue())!=float:
-            raise TypeError(f"type of dataTime:{type(dataTime.getFirst().getValue())} was given, only {float} is accepted")
+        if type(dataTime.getFirst().getValue())!=float:  raise TypeError(f"type of dataTime:{type(dataTime.getFirst().getValue())} was given, only {float} is accepted")
         
         textResult=""
         ptrTime=dataTime.getFirst()

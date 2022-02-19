@@ -1,8 +1,9 @@
 import unittest
 import sys
 
-if '\\' in __file__:  sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
-else:                 sys.path.append("/".join(__file__.split('/')[:-2])+"/")
+if '\\' in __file__ :  sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
+elif '/' in __file__:  sys.path.append("/".join(__file__.split('/')[:-2])+"/")
+else: raise EnvironmentError(f"their is neither '/' or '\\' in the __file__ const:{__file__}")
 
 from point import Point
 
@@ -17,7 +18,7 @@ class Test_FileRepo(unittest.TestCase):
             self.assertEqual(point.getY(),y)
     
     def test_value_set_get_XY_forcedType_multi(self):
-        for x,y,forcedType,expectedToFail in [["a",'b',str,False],[1,1.,int,True],[(0),(1),tuple,True],[1.56,65.,float,False],[-1,15,int,False]]:
+        for x,y,forcedType,expectedToFail in [["a",'b',str,False],[1,1.,int,True],[(0),(1),tuple,True],[1.56,65.,float,False],[-1,15,int,False],[1.99,-45,int,True]]:
             if expectedToFail:
                 with self.assertRaises(TypeError):
                     point=Point(x,y,forcedType=forcedType)
@@ -33,8 +34,7 @@ class Test_FileRepo(unittest.TestCase):
 
 
 
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
+if __name__ == '__main__':unittest.main(verbosity=2)
 
 
 
