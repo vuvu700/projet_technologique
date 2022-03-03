@@ -1,31 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 17 15:56:25 2022
 
-@author: ludandrieu
-"""
 
+import filecmp
 import unittest
-
-import sys
 from os import remove as removeFile
 
-if '\\' in __file__:
-    _MODELES_DIR_PATH = "\\".join(__file__.split('\\')[:-2])+"\\"
-    sys.path.append(_MODELES_DIR_PATH)
-elif '/' in __file__:
-    _MODELES_DIR_PATH = "/".join(__file__.split('/')[:-2])+"/"
-    sys.path.append(_MODELES_DIR_PATH)
-else:
-    raise EnvironmentError(
-        f"their is neither '/' or '\\' in the __file__ const:{__file__}")
+import sys
+sys.path.append(__file__.replace(
+    "\\", "/").replace("unittest/test_FileRepo.py", ""))
 
-from liste import Liste, Cell
-from point import Point
-import filecmp
 from fileRepo import FileRepo
-
+from point import Point
+from liste import Liste, Cell
 
 class Test_FileRepo(unittest.TestCase):
     """
@@ -58,8 +45,10 @@ class Test_FileRepo(unittest.TestCase):
         self.__FileRepo = FileRepo()
         self.__dataTime = Liste()
         self.__dataPoints = Liste()
-        self.__unittestDirPath: str = _MODELES_DIR_PATH.replace(
-            "\\", "/")+"unittest/"
+        # self.__unittestDirPath: str = _MODELES_DIR_PATH.replace(
+        #    "\\", "/")+"unittest/"
+        self.__unittestDirPath: str = __file__.replace(
+            "\\", "/").replace("test_FileRepo.py", "")
 
     def test_dataToString_Points_int(self):
         try:

@@ -1,3 +1,6 @@
+import sys
+sys.path.append(__file__.replace("\\", "/").replace("__init__.py", ""))
+
 if __name__ == '__main__':
     from applicationController import ControllerModel
     from fileRepo import FileRepo

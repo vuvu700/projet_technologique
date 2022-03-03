@@ -1,5 +1,9 @@
-from typing import Union
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+sys.path.append(__file__.replace("liste.py",""))
 
+from typing import Union
 
 class Cell():
 

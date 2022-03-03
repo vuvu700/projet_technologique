@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 10 15:46:19 2022
 
-@author: ludandrieu
-"""
-
+import sys
+sys.path.append(__file__.replace("\\","/").replace("point.py",""))
 
 class Point():
 

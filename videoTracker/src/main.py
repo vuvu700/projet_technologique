@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import abc
+
 import tkinter
 
-import controllers
-import models
-import views
+import sys
+DIR_PATH=__file__.replace("\\","/").replace("main.py","")
+sys.path.append(DIR_PATH+"/models/point.py")
+sys.path.append(DIR_PATH+"/views/")
+sys.path.append(DIR_PATH+"/controllers/")
 
+import views
+import models
+import controllers
 
 class Application(tkinter.Tk):
 

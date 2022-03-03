@@ -1,4 +1,5 @@
-
+import sys
+sys.path.append(__file__.replace("\\","/").replace("masterController.py",""))
 
 class MasterController():
 

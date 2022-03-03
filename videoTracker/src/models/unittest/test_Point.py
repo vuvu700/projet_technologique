@@ -1,16 +1,12 @@
-import unittest
-import sys
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-if '\\' in __file__:
-    sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
-elif '/' in __file__:
-    sys.path.append("/".join(__file__.split('/')[:-2])+"/")
-else:
-    raise EnvironmentError(
-        f"their is neither '/' or '\\' in the __file__ const:{__file__}")
+import unittest
+
+import sys
+sys.path.append(__file__.replace("\\", "/").replace("test_Point.py", ""))
 
 from point import Point
-
 
 class Test_FileRepo(unittest.TestCase):
     def setUp(self) -> None:

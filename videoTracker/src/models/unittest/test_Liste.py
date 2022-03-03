@@ -1,19 +1,11 @@
-
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import unittest
 import sys
-
-if '\\' in __file__:
-    sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
-elif '/' in __file__:
-    sys.path.append("/".join(__file__.split('/')[:-2])+"/")
-else:
-    raise EnvironmentError(
-        f"their is neither '/' or '\\' in the __file__ const:{__file__}")
-
+sys.path.append(__file__.replace("\\", "/").replace("test_Liste.py", ""))
 
 from liste import Liste, Cell
-
 
 class Test_liste(unittest.TestCase):
 

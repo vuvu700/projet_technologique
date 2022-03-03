@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 10 15:49:46 2022
 
-@author: ludandrieu
-"""
+import sys
+sys.path.append(__file__.replace("\\", "/").replace("fileRepo.py", ""))
 
-import point  # ligne juste pour le typage
 import liste  # ligne juste pour le typage
-
+import point  # ligne juste pour le typage
 
 class FileRepo():
 
