@@ -3,12 +3,17 @@
 import unittest
 import sys
 
-if '\\' in __file__ :  sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
-elif '/' in __file__:  sys.path.append("/".join(__file__.split('/')[:-2])+"/")
-else: raise EnvironmentError(f"their is neither '/' or '\\' in the __file__ const:{__file__}")
+if '\\' in __file__:
+    sys.path.append("\\".join(__file__.split('\\')[:-2])+"\\")
+elif '/' in __file__:
+    sys.path.append("/".join(__file__.split('/')[:-2])+"/")
+else:
+    raise EnvironmentError(
+        f"their is neither '/' or '\\' in the __file__ const:{__file__}")
 
 
-from liste import Liste,Cell
+from liste import Liste, Cell
+
 
 class Test_liste(unittest.TestCase):
 
@@ -20,7 +25,7 @@ class Test_liste(unittest.TestCase):
 
     def tearDown(self):
         pass
-        
+
     def test_isEmpty(self):
         self.assertTrue(self.__liste.isEmpty())
 
@@ -48,22 +53,21 @@ class Test_liste(unittest.TestCase):
 
     def test_insertionOrder(self):
         self.__liste.addFirst(self.__first)
-        self.assertEqual(self.__liste.getFirst(),self.__first)
-        self.assertEqual(self.__liste.getLast(),self.__first)
+        self.assertEqual(self.__liste.getFirst(), self.__first)
+        self.assertEqual(self.__liste.getLast(), self.__first)
         self.__liste.addFirst(self.__second)
-        self.assertEqual(self.__liste.getFirst(),self.__second)
-        self.assertEqual(self.__liste.getLast(),self.__first)
+        self.assertEqual(self.__liste.getFirst(), self.__second)
+        self.assertEqual(self.__liste.getLast(), self.__first)
         self.__liste.addFirst(self.__third)
-        self.assertEqual(self.__liste.getFirst(),self.__third)
-        self.assertEqual(self.__liste.getLast(),self.__first)
-    
+        self.assertEqual(self.__liste.getFirst(), self.__third)
+        self.assertEqual(self.__liste.getLast(), self.__first)
+
     def test_str(self):
         self.__liste.addFirst(self.__first)
         self.__liste.addFirst(self.__second)
         self.__liste.addFirst(self.__third)
-        self.assertEqual(str(self.__liste),"third -> second -> first -> ")
+        self.assertEqual(str(self.__liste), "third -> second -> first -> ")
 
 
-
-
-if __name__ == '__main__':unittest.main(verbosity=2)
+if __name__ == '__main__':
+    unittest.main(verbosity=2)

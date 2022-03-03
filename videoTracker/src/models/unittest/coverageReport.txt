@@ -1,10 +1,10 @@
 Name                                                                        Stmts   Miss     Cover   Missing
 ------------------------------------------------------------------------------------------------------------
-D:\code\projet_technologique____\test\videoTracker\src\models\fileRepo.py      35      0   100.00%
+D:\code\projet_technologique____\test\videoTracker\src\models\fileRepo.py      47      0   100.00%
 D:\code\projet_technologique____\test\videoTracker\src\models\liste.py         43      0   100.00%
 D:\code\projet_technologique____\test\videoTracker\src\models\point.py         28      0   100.00%
-test_FileRepo.py                                                              154      0   100.00%
-test_Liste.py                                                                  48      0   100.00%
-test_Point.py                                                                  25      0   100.00%
+test_FileRepo.py                                                              264      6    97.73%   17-21, 334, 343
+test_Liste.py                                                                  53      4    92.45%   8-11, 73
+test_Point.py                                                                  30      4    86.67%   6-9, 42
 ------------------------------------------------------------------------------------------------------------
-TOTAL                                                                         333      0   100.00%
+TOTAL                                                                         465     14    96.99%
