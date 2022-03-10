@@ -1,9 +1,9 @@
-from cProfile import label
 import tkinter as tk
 from tkinter import filedialog
 import sys
-sys.path.append(__file__.replace("\\", "/").replace("__init__.py", ""))
-
+import time
+sys.path.append(__file__.replace("\\", "/").replace("mainWindow.py", ""))
+RESOURCESDIR=__file__.replace("\\",'/').replace("/src/views/mainWindow.PY","")+"/ressouces"
 
 class MasterView(tk.Frame):
 
@@ -13,11 +13,9 @@ class MasterView(tk.Frame):
         
         self.create_menu()
 
-<<<<<<< Updated upstream
     def postInit(self) -> None:
         self.parent.bind("<Button-3>", self.parent.controller.rightClick)
 
-=======
     def create_menu(self):
         self.menubar= tk.Menu(self.parent) 
 
@@ -45,12 +43,11 @@ class MasterView(tk.Frame):
 
         self.parent.config(menu=self.menubar) 
     def saveFile(self):
-        with tk.filedialog.asksaveasfile(mode='w',defaultextension=".csv",initialdir=sys.path,initialfile=__file__) as file:
-             #exportDatatocsv(filename = file)
+        with tk.filedialog.asksaveasfile(parent=self.parent,mode='wb',confirmoverwrite=True,defaultextension=".csv",initialdir=RESOURCESDIR,initialfile=f"data_{time.time()*10:.0f}.csv") as file:
+            pass
+            #on ouvre en ecriture bytes pour eviter les putain de test unitaire qui ne marches pas sur linux
+            #self.parent.controller.exportDataToCsv(fileIO=file) 
+             
         
->>>>>>> Stashed changes
-    # exemple
-    """def Update_menue_N(self,newContent:"list[str]|str")->None:
-        self.menue_N.config(...=...)
-    """
+
     
