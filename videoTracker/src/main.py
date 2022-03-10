@@ -1,17 +1,16 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import controllers
+import models
+import views
 import tkinter
 
 import sys
-DIR_PATH=__file__.replace("\\","/").replace("main.py","")
+DIR_PATH = __file__.replace("\\", "/").replace("main.py", "")
 sys.path.append(DIR_PATH+"/models/point.py")
 sys.path.append(DIR_PATH+"/views/")
 sys.path.append(DIR_PATH+"/controllers/")
 
-import views
-import models
-import controllers
 
 class Application(tkinter.Tk):
 
@@ -21,9 +20,13 @@ class Application(tkinter.Tk):
         self.title('video tracker')
 
         # create the MVC without any conection beteen eachother
-        self.__controllerModel = models.ControllerModel(self)
-        self.__view = views.MasterView(self)
-        self.__controller = controllers.MasterController(self)
+        self.controllerModel = models.ControllerModel(self)
+        self.view = views.MasterView(self)
+        self.controller = controllers.MasterController(self)
+
+        # self.controller.postInit()
+        self.view.postInit()
+        # self.controller.startScaleMode()
 
         """#link the M V C to eachother
         self.__view.updateMVC()

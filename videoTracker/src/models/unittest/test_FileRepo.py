@@ -1,18 +1,14 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-
 import filecmp
 import unittest
 from os import remove as removeFile
 
 import sys
-sys.path.append(__file__.replace(
-    "\\", "/").replace("unittest/test_FileRepo.py", ""))
-
-from fileRepo import FileRepo
+sys.path.append(__file__.replace("\\", "/").replace("unittest/test_FileRepo.py", ""))
 from point import Point
+from fileRepo import FileRepo
 from liste import Liste, Cell
+
 
 class Test_FileRepo(unittest.TestCase):
     """
@@ -35,8 +31,6 @@ class Test_FileRepo(unittest.TestCase):
     - un filename deja cree (oui: eface puis ecrit les nouveles donnees)
     - un filename invalide (non)
     - un filename non cree (oui:creation et ecriture)
-    - un separateur valide[,;/§_|] (oui:le fichier obtenu doit match les fichier test)
-    - un separateur invalide (non)
     ---
 
     """
@@ -45,10 +39,7 @@ class Test_FileRepo(unittest.TestCase):
         self.__FileRepo = FileRepo()
         self.__dataTime = Liste()
         self.__dataPoints = Liste()
-        # self.__unittestDirPath: str = _MODELES_DIR_PATH.replace(
-        #    "\\", "/")+"unittest/"
-        self.__unittestDirPath: str = __file__.replace(
-            "\\", "/").replace("test_FileRepo.py", "")
+        self.__unittestDirPath: str = __file__.replace("\\", "/").replace("test_FileRepo.py", "")
 
     def test_dataToString_Points_int(self):
         try:
@@ -56,8 +47,7 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0.1, 5, 12], [0.2, 0, 189], [0.5, 12, -15]]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, int)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except TypeError as error:
             fail = True
             expectedError = "type of dataPoints:<class 'int'> was forced, only <class 'float'> is accepted"
@@ -70,8 +60,7 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0, 5., 12.], [0.2, 0., 189.], [0.5, 12., -15.]]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except TypeError as error:
             fail = True
             expectedError = "type of dataTime:<class 'int'> was given, only <class 'float'> is accepted"
@@ -83,8 +72,7 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0.1, 5., 12.], [0.2, 0., 189.], [0, 12., -15.]]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except TypeError as error:
             fail = True
             expectedError = "type of dataTime:<class 'int'> was given, only <class 'float'> is accepted"
@@ -97,8 +85,7 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0.1, '5.', "12."], [0.2, '0.', '189.'], [0.5, '12.', '-15.']]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, str)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except TypeError as error:
             fail = True
             expectedError = "type of dataPoints:<class 'str'> was forced, only <class 'float'> is accepted"
@@ -111,8 +98,7 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0.1, 5, "12"], [0.2, (0), 189], [0.5, 12, [-15]]]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, any)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except TypeError as error:
             fail = True
             expectedError = "type of dataPoints:<built-in function any> was forced, only <class 'float'> is accepted"
@@ -123,8 +109,7 @@ class Test_FileRepo(unittest.TestCase):
         for time_var, x_var, y_var in [[0.1, 5., 12.5], [0.2, 0.1, 189.99], [0.5, 12.4, -15.6]]:
             self.__dataTime.addLast(Cell(time_var))
             self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-        strResult = self.__FileRepo.exportDataToString(
-            self.__dataTime, self.__dataPoints, separator=";")
+        strResult = self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         expectedResult = "0.1;5.0;12.5\n0.2;0.1;189.99\n0.5;12.4;-15.6\n"
         self.assertEqual(strResult, expectedResult)
 
@@ -132,8 +117,7 @@ class Test_FileRepo(unittest.TestCase):
         try:
             fail = False
             self.__dataTime.addLast(Cell(0.14))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "les tailles des listes ne sont pas identiques"
@@ -144,8 +128,7 @@ class Test_FileRepo(unittest.TestCase):
         try:
             fail = False
             self.__dataPoints.addLast(Cell(Point(0.5, 5.1, float)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "les tailles des listes ne sont pas identiques"
@@ -160,8 +143,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell(0.16))
             self.__dataPoints.addLast(Cell(Point(0.0, 5.1, float)))
             self.__dataPoints.addLast(Cell(Point(0.5, -5.1, float)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "les tailles des listes ne sont pas identiques"
@@ -175,8 +157,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataPoints.addLast(Cell(Point(0.0, 5.1, float)))
             self.__dataPoints.addLast(Cell(Point(0.5, -5.1, float)))
             self.__dataPoints.addLast(Cell(Point(0.5, -5.1, float)))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "les tailles des listes ne sont pas identiques"
@@ -184,8 +165,7 @@ class Test_FileRepo(unittest.TestCase):
         self.assertTrue(fail)
 
     def test_dataToString_Pts_and_time_empty(self):
-        strResult = self.__FileRepo.exportDataToString(
-            self.__dataTime, self.__dataPoints, separator=";")
+        strResult = self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         expectedResult = ""
         self.assertEqual(strResult, expectedResult)
 
@@ -198,8 +178,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell(0.14))
             self.__dataTime.addLast(Cell())
             self.__dataTime.addLast(Cell(0.16))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "unexpected empty Cell in dataTime at position 1"
@@ -214,8 +193,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell())
             self.__dataTime.addLast(Cell(0.15))
             self.__dataTime.addLast(Cell(0.16))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "unexpected empty Cell in dataTime at position 0"
@@ -231,8 +209,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell(0.14))
             self.__dataTime.addLast(Cell(12.0))
             self.__dataTime.addLast(Cell(0.16))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "unexpected empty Cell in dataPoints at position 0"
@@ -247,8 +224,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell(0.14))
             self.__dataTime.addLast(Cell(12.0))
             self.__dataTime.addLast(Cell(0.16))
-            self.__FileRepo.exportDataToString(
-                self.__dataTime, self.__dataPoints, separator=";")
+            self.__FileRepo.exportDataToString(self.__dataTime, self.__dataPoints)
         except ValueError as error:
             fail = True
             expectedError = "unexpected empty Cell in dataPoints at position 2"
@@ -261,8 +237,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
         targetPath = self.__unittestDirPath+'alredyExist.csv'
         validePath = self.__unittestDirPath+'unittest_coma_dot.csv'
-        self.__FileRepo.exportDataToCSV(
-            self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator=";")
+        self.__FileRepo.exportDataToCSV(self.__dataTime, self.__dataPoints, pathAndFilename=targetPath)
         self.assertTrue(filecmp.cmp(targetPath, validePath, shallow=False))
 
     def test_dataToCvs_fileInvalide(self):
@@ -271,12 +246,15 @@ class Test_FileRepo(unittest.TestCase):
             for time_var, x_var, y_var in [[0.1, 5., 12.5], [0.2, 0.1, 189.99], [0.5, 12.4, -15.6]]:
                 self.__dataTime.addLast(Cell(time_var))
                 self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-            targetPath = self.__unittestDirPath+'a0§d2a01..14?%.csv'
-            self.__FileRepo.exportDataToCSV(
-                self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator=";")
+            targetPath = self.__unittestDirPath+'abc\0.csv'
+            self.__FileRepo.exportDataToCSV(self.__dataTime, self.__dataPoints, pathAndFilename=targetPath)
         except IOError as error:
             fail = True
             expectedError = f"[Errno 22] Invalid argument: '{targetPath}'"
+            self.assertEqual(str(error), expectedError)
+        except ValueError as error:
+            fail = True
+            expectedError = f"embedded null character"
             self.assertEqual(str(error), expectedError)
         self.assertTrue(fail)
         self.setUp()
@@ -284,8 +262,7 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataTime.addLast(Cell(time_var))
             self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
         targetPath = self.__unittestDirPath+'incomplet.pomme'
-        self.__FileRepo.exportDataToCSV(
-            self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator=";")
+        self.__FileRepo.exportDataToCSV(self.__dataTime, self.__dataPoints, pathAndFilename=targetPath)
 
     def test_dataToCvs_fileNotAlredyExist(self):
         for time_var, x_var, y_var in [[0.1, 5., 12.5], [0.2, 0.1, 189.99], [0.5, 12.4, -15.6]]:
@@ -293,39 +270,9 @@ class Test_FileRepo(unittest.TestCase):
             self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
         targetPath = self.__unittestDirPath+'notAlredyExist.csv'
         validePath = self.__unittestDirPath+'unittest_coma_dot.csv'
-        self.__FileRepo.exportDataToCSV(
-            self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator=";")
+        self.__FileRepo.exportDataToCSV(self.__dataTime, self.__dataPoints, pathAndFilename=targetPath)
         self.assertTrue(filecmp.cmp(targetPath, validePath, shallow=False))
         removeFile(targetPath)
-
-    def test_dataToCvs_valide_invalide_separator(self):
-        for separator, filename in [[",", 'coma'], [";", 'coma_dot'], ["/", 'slash'], ["§", 'paragraph'], ["_", 'underscore'], ["|", 'vertical']]:
-            self.setUp()
-            for time_var, x_var, y_var in [[0.1, 5., 12.5], [0.2, 0.1, 189.99], [0.5, 12.4, -15.6]]:
-                self.__dataTime.addLast(Cell(time_var))
-                self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-            targetPath = self.__unittestDirPath+'test.csv'
-            validePath = self.__unittestDirPath+'unittest_'+filename+'.csv'
-            self.__FileRepo.exportDataToCSV(
-                self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator=separator)
-            self.assertTrue(filecmp.cmp(targetPath, validePath, shallow=False))
-            removeFile(targetPath)
-        try:
-            fail = False
-            self.setUp()
-            for time_var, x_var, y_var in [[0.1, 5., 12.5], [0.2, 0.1, 189.99], [0.5, 12.4, -15.6]]:
-                self.__dataTime.addLast(Cell(time_var))
-                self.__dataPoints.addLast(Cell(Point(x_var, y_var, float)))
-            targetPath = self.__unittestDirPath+'test.csv'
-            validePath = self.__unittestDirPath+'unittest_'+filename+'.csv'
-            self.__FileRepo.exportDataToCSV(
-                self.__dataTime, self.__dataPoints, pathAndFilename=targetPath, separator='/***/')
-            self.assertTrue(filecmp.cmp(targetPath, validePath, shallow=False))
-        except ValueError as error:
-            fail = True
-            expectedError = "value of separator:/***/ was given, only (',', ';', '/', '§', '_', '|') are accepted"
-            self.assertEqual(str(error), expectedError)
-        self.assertTrue(fail)
 
 
 if __name__ == '__main__':

@@ -1,18 +1,20 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from io import TextIOWrapper
+from typing import Union
 import sys
 sys.path.append(__file__.replace("\\", "/").replace("fileRepo.py", ""))
-
 import liste  # ligne juste pour le typage
 import point  # ligne juste pour le typage
+
 
 class FileRepo():
 
     def __init__(self) -> None:
         pass
 
-    def exportDataToString(self, dataTime: "liste.Liste[float]", dataPoints: "liste.Liste[point.Point[float]]", separator: str = ";") -> str:
+    def exportDataToString(self, dataTime: "liste.Liste[float]", dataPoints: "liste.Liste[point.Point[float]]") -> str:
+        separator = ';'
         if dataPoints.isEmpty() or dataTime.isEmpty():
             if dataPoints.isEmpty() and dataTime.isEmpty():
                 return ""
@@ -59,13 +61,13 @@ class FileRepo():
         else:
             return textResult
 
-    def exportDataToCSV(self, dataTime: "liste.Liste[float]", dataPoints: "liste.Liste[point.Point]", pathAndFilename: str, separator: str = ";") -> None:
-        if not separator in (",", ";", "/", "§", "_", "|"):
-            raise ValueError(
-                f"value of separator:{separator} was given, only {(',', ';', '/', '§', '_', '|')} are accepted")
-
-        textToExport = self.exportDataToString(dataTime, dataPoints, separator)
+    def exportDataToCSV(self, dataTime: "liste.Liste[float]", dataPoints: "liste.Liste[point.Point]", pathAndFilename: Union[str, TextIOWrapper]) -> None:
+        textToExport = self.exportDataToString(dataTime, dataPoints)
+        if isinstance(pathAndFilename, TextIOWrapper):
+            pathAndFilename.write(textToExport)
         if not pathAndFilename.endswith(".csv"):
             pathAndFilename += ".csv"
-        with open(pathAndFilename, mode="w") as file:  # verif filename invalide -> crash
+        # try:
+        with open(pathAndFilename, mode="w", encoding='utf-8') as file:  # verif filename invalide -> crash
             file.write(textToExport)
+        # except IOError as error: inutile car python renvois deja les erreurs appropriées

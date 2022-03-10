@@ -29,6 +29,4 @@ pip install coverage
 echo !!!!coverage is now installed!!!!!
 goto runCoverage
 
-
-
 :END

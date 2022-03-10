@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import unittest
 
 import sys
-sys.path.append(__file__.replace("\\", "/").replace("test_Point.py", ""))
+sys.path.append(__file__.replace("\\", "/").replace("unittest/test_Point.py", ""))
 
-from point import Point
+import point 
+Point=point.Point
 
 class Test_FileRepo(unittest.TestCase):
     def setUp(self) -> None:

@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 import unittest
-import sys
-sys.path.append(__file__.replace("\\", "/").replace("test_Liste.py", ""))
 
+import sys
+sys.path.append(__file__.replace("\\", "/").replace("unittest/test_Liste.py", ""))
 from liste import Liste, Cell
+
+
 
 class Test_liste(unittest.TestCase):
 
